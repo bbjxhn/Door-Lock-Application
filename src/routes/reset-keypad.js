@@ -3,7 +3,9 @@ const router = express.Router();
 const path = require('path');
 
 router.get('/reset-keypad', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public', 'reset-keypad.html'));
+	res.render('reset-keypad', {
+		title: 'Reset Keypad Password'
+	});
 });
 
 module.exports = router;
