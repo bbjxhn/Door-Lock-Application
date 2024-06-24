@@ -3,7 +3,9 @@ const router = express.Router();
 const path = require('path');
 
 router.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, '../../public', 'dashboard.html'));
+	res.render('dashboard', {
+		title: 'Dashboard'
+	});
 });
 
 module.exports = router;
