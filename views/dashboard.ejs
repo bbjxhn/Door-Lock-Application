@@ -24,45 +24,22 @@
         </div>
     </div>
     <script>
-        const esp32Url = 'http://172.20.10.6'; // Replace <ESP32-IP> with your ESP32's IP address
+        document.getElementById('unlock-button').addEventListener('click', function() {
+            var lockIcon = document.getElementById('lock-icon');
+            var lockState = document.getElementById('lock-state');
+            var ESP32_GPIO_IP = '172.20.10.6';
 
-        let isLocked = false;
-
-        async function lockDoor() {
-        const response = await fetch(`${esp32Url}/command?cmd=lock`);
-        const result = await response.text();
-
-        lockIcon.classList.remove('fa-lock-open');
-        lockIcon.classList.add('fa-lock');
-
-        document.getElementById('state').innerText = result;
-        isLocked = true;
-        }
-
-        async function unlockDoor() {
-        const response = await fetch(`${esp32Url}/command?cmd=unlock`);
-        const result = await response.text();
-
-        lockIcon.classList.remove('fa-lock');
-        lockIcon.classList.add('fa-lock-open');
-
-        document.getElementById('state').innerText = result;
-        isLocked = false;
-        }
-
-        async function toggleLock() {
-        if (isLocked) {
-            await unlockDoor();
-        } else {
-            await lockDoor();
-        }
-        }
-
-        async function getState() {
-        const response = await fetch(`${esp32Url}/state`);
-        const result = await response.text();
-        document.getElementById('state').innerText = result;
-        }
+            // Toggle the lock icon
+            if (lockIcon.classList.contains('fa-lock')) {
+                lockIcon.classList.remove('fa-lock');
+                lockIcon.classList.add('fa-lock-open');
+                fetch(`http://${ESP32_GPIO_IP}/lock?state=unlocked`).then(response => response.text());
+            } else {
+                lockIcon.classList.remove('fa-lock-open');
+                lockIcon.classList.add('fa-lock');
+                fetch(`http://${ESP32_GPIO_IP}/lock?state=locked`).then(response => response.text());
+            }
+        });
     </script>
 </body>
 </html>
