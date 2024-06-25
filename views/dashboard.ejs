@@ -21,25 +21,12 @@
                 <a id="reset-password" href="/reset-keypad" class="action-button"><i class="fas fa-key"></i></a>
                 <p>Reset Keypad</p>
             </div>
+            <div id="grid-item">
+                <a id="password-generator" href="/password-generator" class="action-button"><i class="fas fa-password"></i></a>
+                <p>Password Generator</p>
+            </div>
         </div>
     </div>
-    <script>
-        document.getElementById('unlock-button').addEventListener('click', function() {
-            var lockIcon = document.getElementById('lock-icon');
-            var lockState = document.getElementById('lock-state');
-            var ESP32_GPIO_IP = '172.20.10.6';
-
-            // Toggle the lock icon
-            if (lockIcon.classList.contains('fa-lock')) {
-                lockIcon.classList.remove('fa-lock');
-                lockIcon.classList.add('fa-lock-open');
-                fetch(`http://${ESP32_GPIO_IP}/lock?state=unlocked`).then(response => response.text());
-            } else {
-                lockIcon.classList.remove('fa-lock-open');
-                lockIcon.classList.add('fa-lock');
-                fetch(`http://${ESP32_GPIO_IP}/lock?state=locked`).then(response => response.text());
-            }
-        });
-    </script>
+    <script src="/js/dashboard-script.js"></script>
 </body>
 </html>

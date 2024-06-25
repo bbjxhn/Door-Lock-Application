@@ -7,12 +7,14 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const dashboardRouteer = require('./src/routes/dashboard');
-const cameraRouteer = require('./src/routes/camera');
-const keypadRouteer = require('./src/routes/reset-keypad');
+const dashboardRouter = require('./src/routes/dashboard');
+const cameraRouter = require('./src/routes/camera');
+const keypadRouter = require('./src/routes/reset-keypad');
+const passwordGenerator = require('./src/routes/password-generator');
 
-app.use('/', dashboardRouteer);
-app.use('/', cameraRouteer);
-app.use('/', keypadRouteer); 
+app.use('/', dashboardRouter);
+app.use('/', cameraRouter);
+app.use('/', keypadRouter); 
+app.use('/', passwordGenerator);
 
 module.exports = app;
